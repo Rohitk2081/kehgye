@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "567633935254",
+    "project_id": "kehgye-86a5c",
+    "storage_bucket": "kehgye-86a5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567633935254:android:9c2ba55933b8a89d613bb7",
+        "android_client_info": {
+          "package_name": "com.quotes.kehgye"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtjWeTc7-Sydmri6afsg7-vyi7uRMM528"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DesignActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/tvDesignTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="16dp"
+            android:text="Design"
+            android:textColor="@android:color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="255dp"
+            android:src="@drawable/ic_save" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/designArea"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@android:color/darker_gray">
+
+        <!-- Image View to display selected image (wallpaper) -->
+
+        <!-- Text View for displaying quote -->
+
+        <ImageView
+            android:id="@+id/ivWallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="35dp"
+            android:background="@android:color/black"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tvQuote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="write quote first"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/toolLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:gravity="center"
+        android:background="#FF73B5EA">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="#73B5EA">
+
+            <ImageView
+                android:id="@+id/ivBold"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_bold" />
+
+            <ImageView
+                android:id="@+id/ivItalic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_italic" />
+
+            <ImageView
+                android:id="@+id/ivTextColor"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_text_color" />
+
+            <ImageView
+                android:id="@+id/ivAttachments"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_attachments" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="#FF73B5EA">
+
+            <ImageView
+                android:id="@+id/ivAlignLeft"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_align_left" />
+
+            <ImageView
+                android:id="@+id/ivAlignCenter"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_align_center" />
+
+            <ImageView
+                android:id="@+id/ivAlignRight"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_align_right" />
+
+            <ImageView
+                android:id="@+id/ivAlignJustify"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_align_justify" />
+
+            <SeekBar
+                android:id="@+id/seekBarTextSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:max="50"
+                android:progress="24" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
