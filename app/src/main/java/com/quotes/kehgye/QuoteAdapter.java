@@ -1,7 +1,7 @@
-// QuoteAdapter.java
 package com.quotes.kehgye;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +51,14 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
                         .update("likes", quote.getLikes());
                 holder.likesTextView.setText(quote.getLikes() + " Likes");
             }
+        });
+
+        // Set click listener on the username
+        holder.usernameTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, UserProfileActivity.class);
+            intent.putExtra("username", quote.getUsername());
+            intent.putExtra("userId", quote.getUserId());
+            context.startActivity(intent);
         });
     }
 

@@ -1,5 +1,6 @@
 package com.quotes.kehgye;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private String userId;
+    private ImageView logout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +72,17 @@ public class ProfileFragment extends Fragment {
         usernameTextView = view.findViewById(R.id.textViewUsername);
         emailTextView = view.findViewById(R.id.textViewEmail);
         postsCountTextView = view.findViewById(R.id.posts_count);
+        logout=view.findViewById(R.id.logout);
         recyclerViewPosts = view.findViewById(R.id.recyclerViewPosts);
         recyclerViewPosts.setLayoutManager(new GridLayoutManager(requireContext(), 3)); // Example: Grid with 3 columns
+
+        logout.setOnClickListener(v -> {
+            firebaseAuth.signOut();
+            Intent intent = new Intent(getActivity(), Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            requireActivity().finish();
+        });
 
         // Load user profile data
         loadUserProfile();
@@ -80,6 +91,7 @@ public class ProfileFragment extends Fragment {
         retrieveUserPosts();
 
         return view;
+
     }
 
     private void loadUserProfile() {
