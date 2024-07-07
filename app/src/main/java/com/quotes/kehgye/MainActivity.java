@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.navigation_home) {
                     selectedFragment = new HomeFragment();
-                } else if (itemId == R.id.navigation_search) {
-                    selectedFragment = new SearchFragment();
+//                } else if (itemId == R.id.navigation_search) {
+//                    selectedFragment = new SearchFragment();
                 } else if (itemId == R.id.navigation_create) {
                     selectedFragment = new CreateFragment();
-                } else if (itemId == R.id.navigation_notifications) {
-                    selectedFragment = new NotificationsFragment();
+//                } else if (itemId == R.id.navigation_notifications) {
+//                    selectedFragment = new NotificationsFragment();
                 } else if (itemId == R.id.navigation_profile) {
                     selectedFragment = new ProfileFragment();
                 }
