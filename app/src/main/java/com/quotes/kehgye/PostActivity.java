@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import com.google.firebase.Timestamp;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.util.Date;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -98,41 +100,84 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-    private void saveQuoteWithImageUrl(String text, String imageUrl, String caption) {
-        String userId = firebaseAuth.getCurrentUser().getUid();
+//    private void saveQuoteWithImageUrl(String text, String imageUrl, String caption) {
+//        String userId = firebaseAuth.getCurrentUser().getUid();
+//
+//        // Fetch username from Firebase Realtime Database
+//        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+//        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    String username = dataSnapshot.child("username").getValue(String.class);
+//
+//                    Timestamp timestamp = Timestamp.now();
+//
+//                    // Create Quote object with fetched username
+//                    Quote quote = new Quote(text, imageUrl, caption, 0, userId, username,timestamp); // Initializing likes to 0
+//
+//                    // Save quote to Firestore
+//                    firestore.collection("quotes").add(quote)
+//                            .addOnSuccessListener(documentReference -> {
+//                                Toast.makeText(PostActivity.this, "Quote posted successfully!", Toast.LENGTH_SHORT).show();
+//                                // Finish the activity after successful post
+//                            })
+//                            .addOnFailureListener(e -> {
+//                                Log.e(TAG, "Error posting quote: " + e.getMessage());
+//                                Toast.makeText(PostActivity.this, "Error posting quote: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            });
+//                } else {
+//                    Log.e(TAG, "User data not found for userId: " + userId);
+//                    Toast.makeText(PostActivity.this, "User data not found. Unable to post quote.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e(TAG, "Database error: " + databaseError.getMessage());
+//                Toast.makeText(PostActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+private void saveQuoteWithImageUrl(String text, String imageUrl, String caption) {
+    String userId = firebaseAuth.getCurrentUser().getUid();
 
-        // Fetch username from Firebase Realtime Database
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String username = dataSnapshot.child("username").getValue(String.class);
+    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                String username = dataSnapshot.child("username").getValue(String.class);
 
-                    // Create Quote object with fetched username
-                    Quote quote = new Quote(text, imageUrl, caption, 0, userId, username); // Initializing likes to 0
+                // Get current timestamp
+                Timestamp timestamp = Timestamp.now();
 
-                    // Save quote to Firestore
-                    firestore.collection("quotes").add(quote)
-                            .addOnSuccessListener(documentReference -> {
-                                Toast.makeText(PostActivity.this, "Quote posted successfully!", Toast.LENGTH_SHORT).show();
-                                // Finish the activity after successful post
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.e(TAG, "Error posting quote: " + e.getMessage());
-                                Toast.makeText(PostActivity.this, "Error posting quote: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                } else {
-                    Log.e(TAG, "User data not found for userId: " + userId);
-                    Toast.makeText(PostActivity.this, "User data not found. Unable to post quote.", Toast.LENGTH_SHORT).show();
-                }
+                // Create Quote object with fetched username and timestamp
+                Quote quote = new Quote(text, imageUrl, caption, 0, userId, username, timestamp); // Initialize likes to 0
+
+                // Save quote to Firestore
+                firestore.collection("quotes").add(quote)
+                        .addOnSuccessListener(documentReference -> {
+                            Toast.makeText(PostActivity.this, "Quote posted successfully!", Toast.LENGTH_SHORT).show();
+                            // Finish the activity after successful post
+                            finish();
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Error posting quote: " + e.getMessage());
+                            Toast.makeText(PostActivity.this, "Error posting quote: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                Log.e(TAG, "User data not found for userId: " + userId);
+                Toast.makeText(PostActivity.this, "User data not found. Unable to post quote.", Toast.LENGTH_SHORT).show();
             }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e(TAG, "Database error: " + databaseError.getMessage());
-                Toast.makeText(PostActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.e(TAG, "Database error: " + databaseError.getMessage());
+            Toast.makeText(PostActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+
 }

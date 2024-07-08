@@ -50,7 +50,7 @@
         android:layout_height="100dp"
         android:layout_below="@id/profilePicLabel"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_logo" />
+        android:background="@drawable/emptyprofile" />
 
     <Button
         android:id="@+id/uploadPicButton"

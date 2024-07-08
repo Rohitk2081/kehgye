@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,7 @@ public class Registration extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private Uri profileImageUri;
+    private TextView backtologin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,18 @@ public class Registration extends AppCompatActivity {
         signUpButton = findViewById(R.id.signUpButton);
         uploadPicButton = findViewById(R.id.uploadPicButton);
         profileImageView = findViewById(R.id.profileImageView);
+        backtologin = findViewById(R.id.loginTextView);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+
+        backtologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Registration.this,Login.class);
+                startActivity(intent);
+            }
+        });
 
         uploadPicButton.setOnClickListener(new View.OnClickListener() {
             @Override

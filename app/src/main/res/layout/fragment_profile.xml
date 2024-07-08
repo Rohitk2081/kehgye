@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#051DA0"
+        android:background="#7581C7"
         android:elevation="4dp">
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="240dp"
-            android:background="@drawable/ic_bold" />
+            android:background="@drawable/logout" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -53,7 +53,7 @@
                 android:layout_height="101dp"
                 android:layout_marginEnd="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_logo" />
+                android:src="@drawable/emptyprofile" />
 
             <TextView
                 android:id="@+id/textViewUsername"

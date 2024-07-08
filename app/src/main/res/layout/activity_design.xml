@@ -48,24 +48,24 @@
         <ImageView
             android:id="@+id/ivWallpaper"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginTop="35dp"
-            android:background="@android:color/black"
+            android:layout_height="400dp"
+            android:layout_marginTop="1dp"
+            android:background="@android:color/white"
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tvQuote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
+           android:layout_margin="100dp"
             android:gravity="center"
             android:padding="16dp"
-            android:text="write quote first"
-            android:textColor="@android:color/white"
+            android:text="Write your first quote"
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
 
     </FrameLayout>
+
 
     <LinearLayout
         android:id="@+id/toolLayout"

@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -46,6 +50,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // Initialize Firebase instances
         firebaseAuth = FirebaseAuth.getInstance();
@@ -109,8 +114,8 @@ public class ProfileFragment extends Fragment {
                         if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
                             Glide.with(requireContext())
                                     .load(user.getProfilePictureUrl())
-                                    .placeholder(R.drawable.ic_bold)
-                                    .error(R.drawable.ic_italic)
+                                    .placeholder(R.drawable.emptyprofile)
+                                    .error(R.drawable.emptyprofile)
                                     .into(profilePhoto);
                         }
                     }
@@ -128,6 +133,7 @@ public class ProfileFragment extends Fragment {
     private void retrieveUserPosts() {
         firestore.collection("quotes")
                 .whereEqualTo("userId", userId)
+//                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     quotesList.clear();
@@ -136,7 +142,7 @@ public class ProfileFragment extends Fragment {
 
                         if (imageUrl != null && !imageUrl.isEmpty()) {
                             // Create a Quote object with just the imageUrl
-                            Quote quote = new Quote(null, imageUrl, null, 0, null, null);
+                            Quote quote = new Quote(null, imageUrl, null, 0, null, null,null);
                             quotesList.add(quote);
                         }
                     }
@@ -151,6 +157,50 @@ public class ProfileFragment extends Fragment {
                 .addOnFailureListener(e -> {
                     Log.e("ProfileFragment", "Error retrieving user posts: " + e.getMessage());
                 });
-    }
+   }
+//private void retrieveUserPosts() {
+//    firestore.collection("quotes")
+//            .whereEqualTo("userId", userId)
+//            .orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp in descending order
+//            .get()
+//            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                @Override
+//                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                    quotesList.clear();
+//                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+//                        String imageUrl = documentSnapshot.getString("imageUrl");
+//
+//                        if (imageUrl != null && !imageUrl.isEmpty()) {
+//                            // Retrieve other fields as needed
+//                            String quoteText = documentSnapshot.getString("quoteText");
+//                            String caption = documentSnapshot.getString("caption");
+//                            int likes = documentSnapshot.getLong("likes").intValue();
+//                            String userId = documentSnapshot.getString("userId");
+//                            String username = documentSnapshot.getString("username");
+//                            Timestamp timestamp = documentSnapshot.getTimestamp("timestamp");
+//
+//                            // Create a Quote object with retrieved data
+//                            Quote quote = new Quote(quoteText, imageUrl, caption, likes, userId, username, timestamp);
+//                            quotesList.add(quote);
+//                        }
+//                    }
+//
+//                    // Update UI with retrieved posts
+//                    PostsAdapter adapter = new PostsAdapter(quotesList);
+//                    recyclerViewPosts.setAdapter(adapter);
+//
+//                    // Update posts count
+//                    postsCountTextView.setText(String.valueOf(quotesList.size()));
+//                }
+//            })
+//            .addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.e("ProfileFragment", "Error retrieving user posts: " + e.getMessage());
+//                }
+//            });
+//}
+
+
 
 }

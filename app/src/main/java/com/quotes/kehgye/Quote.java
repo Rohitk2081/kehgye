@@ -1,5 +1,8 @@
 package com.quotes.kehgye;
 
+import com.google.firebase.Timestamp;
+import java.util.Date;
+
 public class Quote {
 
     private String id;
@@ -10,18 +13,22 @@ public class Quote {
     private String userId;
     private String username;
     private boolean liked;
+    private Timestamp timestamp;
+
 
     public Quote() {
         // Default constructor required for calls to DataSnapshot.getValue(Quote.class)
     }
 
-    public Quote(String quoteText, String imageUrl, String caption, int likes, String userId, String username) {
+    public Quote(String quoteText, String imageUrl, String caption, int likes, String userId, String username, Timestamp timestamp) {
         this.quoteText = quoteText;
         this.imageUrl = imageUrl;
         this.caption = caption;
         this.likes = likes;
         this.userId = userId;
         this.username = username;
+        this.timestamp = timestamp;
+
         this.liked = false; // Initialize as not liked
     }
 
@@ -88,4 +95,13 @@ public class Quote {
     public void setLiked(boolean liked) {
         this.liked = liked;
     }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
 }

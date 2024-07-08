@@ -85,8 +85,8 @@ public class DesignActivity extends AppCompatActivity {
                 Intent intent = new Intent(DesignActivity.this, PostActivity.class);
                 intent.putExtra("IMAGE_FILE_PATH", imageFile.getAbsolutePath());
                 intent.putExtra("QUOTE_TEXT", tvQuote.getText().toString());
-                intent.putExtra("TEXTVIEW_FINAL_X", finalX);
-                intent.putExtra("TEXTVIEW_FINAL_Y", finalY);
+//                intent.putExtra("TEXTVIEW_FINAL_X", finalX);
+//                intent.putExtra("TEXTVIEW_FINAL_Y", finalY);
                 startActivity(intent);
             }
         });
@@ -211,18 +211,32 @@ public class DesignActivity extends AppCompatActivity {
             try {
                 InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                ivWallpaper.setImageBitmap(selectedImage);
+                Bitmap croppedImage = cropToSquare(selectedImage);
+                ivWallpaper.setImageBitmap(croppedImage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+    private Bitmap cropToSquare(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int newWidth = (width > height) ? height : width; // Square dimensions
+        int newHeight = (width > height) ? height : width; // Square dimensions
+
+        // Calculate the top left point of the crop
+        int cropW = (width - newWidth) / 2;
+        int cropH = (height - newHeight) / 2;
+
+        Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
+        return croppedBitmap;
     }
 
     private void updateTextStyle() {
         int style = 0;
         if (isBold) {
             style += Typeface.BOLD;
-            ivBold.setImageResource(R.drawable.ic_align_center); // Example of highlighted icon
+            ivBold.setImageResource(R.drawable.highbold); // Example of highlighted icon
         } else {
             ivBold.setImageResource(R.drawable.ic_bold); // Example of normal icon
         }
@@ -246,13 +260,39 @@ public class DesignActivity extends AppCompatActivity {
         tvQuote.setTypeface(null, style);
     }
 
+//    private Bitmap combineImageAndText() {
+//        Bitmap bitmap = Bitmap.createBitmap(ivWallpaper.getWidth(), ivWallpaper.getHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        ivWallpaper.draw(canvas);
+//        tvQuote.draw(canvas);
+//        return bitmap;
+//    }
     private Bitmap combineImageAndText() {
+        // Create a new bitmap with the same dimensions as the ImageView
         Bitmap bitmap = Bitmap.createBitmap(ivWallpaper.getWidth(), ivWallpaper.getHeight(), Bitmap.Config.ARGB_8888);
+
+        // Create a canvas to draw on the bitmap
         Canvas canvas = new Canvas(bitmap);
+
+        // Draw the ImageView content on the canvas
         ivWallpaper.draw(canvas);
+
+        // Save the current state of the canvas
+        int saveId = canvas.save();
+
+        // Translate the canvas to the final coordinates
+        canvas.translate(finalX, finalY);
+
+        // Draw the TextView content on the canvas at the translated position
         tvQuote.draw(canvas);
+
+        // Restore the canvas to its original state
+        canvas.restoreToCount(saveId);
+
+        // Return the combined bitmap
         return bitmap;
     }
+
 
     private File saveCombinedImageAsFile(Bitmap bitmap) {
         File imageFile = null;
