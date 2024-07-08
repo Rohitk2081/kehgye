@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private String userId;
     private ImageView logout;
+    private Button editprofile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +81,19 @@ public class ProfileFragment extends Fragment {
         postsCountTextView = view.findViewById(R.id.posts_count);
         logout=view.findViewById(R.id.logout);
         recyclerViewPosts = view.findViewById(R.id.recyclerViewPosts);
+        editprofile = view.findViewById(R.id.editprofile);
+
+
+
         recyclerViewPosts.setLayoutManager(new GridLayoutManager(requireContext(), 3)); // Example: Grid with 3 columns
+
+      editprofile.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              Intent intent = new Intent(getActivity(),UpdateProfile.class);
+              startActivity(intent);
+          }
+      });
 
         logout.setOnClickListener(v -> {
             firebaseAuth.signOut();

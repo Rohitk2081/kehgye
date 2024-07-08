@@ -22,6 +22,9 @@
         android:theme="@style/Theme.Kehgye"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateProfile"
+            android:exported="false" />
+        <activity
             android:name=".UserProfileActivity"
             android:exported="false" />
         <activity

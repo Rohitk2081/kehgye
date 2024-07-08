@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:background="@drawable/splash_gradient">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/updateLogoImageView"
+        android:layout_width="73dp"
+        android:layout_height="39dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="7dp"
+        android:src="@drawable/ic_logo" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/updateTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/updateLogoImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="#BD8C44"
+        android:text="Update Profile"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <!-- Profile Picture Label and Image -->
+    <TextView
+        android:id="@+id/updateProfilePicLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Picture"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:layout_below="@id/updateTitleTextView"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/updateProfileImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/updateProfilePicLabel"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/emptyprofile" />
+
+    <Button
+        android:id="@+id/updateUploadPicButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:textColor="@android:color/white"
+        android:background="@color/white"
+        android:layout_below="@id/updateProfileImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <!-- User Name Label and Input -->
+    <LinearLayout
+        android:id="@+id/updateUserNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/updateUploadPicButton"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/updateUserNameLabelTextView"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="#BD8C44"
+            android:text="Username"
+            android:textColor="@color/white"
+            android:padding="7dp"
+            android:paddingLeft="20dp"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/updateUserNameEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="Enter your username"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <!-- Email Label and Input -->
+    <LinearLayout
+        android:id="@+id/updateEmailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/updateUserNameLayout"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/updateEmailLabelTextView"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="#BD8C44"
+            android:text="E-Mail"
+            android:textColor="@color/white"
+            android:padding="6dp"
+            android:paddingLeft="20dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/updateEmailEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+
+    <!-- Password Label and Input -->
+    <LinearLayout
+        android:id="@+id/updatePasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/updateEmailLayout"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/updatePasswordLabelTextView"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="#BD8C44"
+            android:text="Password"
+            android:textColor="@color/white"
+            android:padding="6dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/updatePasswordEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="Enter your password"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <!-- Confirm Password Label and Input -->
+    <LinearLayout
+        android:id="@+id/updateConfirmPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/updatePasswordLayout"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/updateConfirmPasswordLabelTextView"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="#BD8C44"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:padding="6dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/updateConfirmPasswordEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="Confirm your password"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <!-- Update Profile Button -->
+    <Button
+        android:id="@+id/updateProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Profile"
+        android:textColor="@android:color/white"
+        android:background="@color/white"
+        android:layout_below="@id/updateConfirmPasswordLayout"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- Footer TextView -->
+    <TextView
+        android:id="@+id/updateFooterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All rights reserved to Kehgye"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+</RelativeLayout>
