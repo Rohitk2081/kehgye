@@ -14,8 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,20 +55,39 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void fetchQuotes() {
-        firestore.collection("quotes")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (DocumentSnapshot document : task.getResult()) {
-                            Quote quote = document.toObject(Quote.class);
+//    private void fetchQuotes() {
+//        firestore.collection("quotes")
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        for (DocumentSnapshot document : task.getResult()) {
+//                            Quote quote = document.toObject(Quote.class);
+//                            quote.setId(document.getId()); // Set the document ID
+//                            quotesList.add(quote);
+//                        }
+//                        quoteAdapter.notifyDataSetChanged();
+//                    } else {
+//                        Log.e(TAG, "Error getting documents: ", task.getException());
+//                    }
+//                });
+//    }
+private void fetchQuotes() {
+    firestore.collection("quotes")
+            .orderBy("timestamp", Query.Direction.DESCENDING) // Order by timestamp in descending order
+            .get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Quote quote = document.toObject(Quote.class);
+                        if (quote != null) {
                             quote.setId(document.getId()); // Set the document ID
                             quotesList.add(quote);
                         }
-                        quoteAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.e(TAG, "Error getting documents: ", task.getException());
                     }
-                });
-    }
+                    quoteAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e(TAG, "Error getting documents: ", task.getException());
+                }
+            });
+}
 }

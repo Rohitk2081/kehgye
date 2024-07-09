@@ -1,5 +1,7 @@
 package com.quotes.kehgye;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -172,6 +174,12 @@ public class ProfileFragment extends Fragment {
                     Log.e("ProfileFragment", "Error retrieving user posts: " + e.getMessage());
                 });
    }
+
+
+
+
+
+
 //private void retrieveUserPosts() {
 //    firestore.collection("quotes")
 //            .whereEqualTo("userId", userId)

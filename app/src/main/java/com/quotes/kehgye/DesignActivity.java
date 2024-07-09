@@ -16,14 +16,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DesignActivity extends AppCompatActivity {
 
@@ -37,6 +46,9 @@ public class DesignActivity extends AppCompatActivity {
     private ImageView ivAttachment;
     private ImageView ivBold, ivItalic, ivTextColor;
     private ImageView ivAlignLeft, ivAlignCenter, ivAlignRight, ivAlignJustify;
+//    private ImageView ivvWallpaper;
+    private RecyclerView rvWallpapers;
+    private List<StorageReference> wallpaperRefs = new ArrayList<>();
 
     private boolean isBold = false;
     private boolean isItalic = false;
@@ -68,6 +80,10 @@ public class DesignActivity extends AppCompatActivity {
         ivAlignCenter = findViewById(R.id.ivAlignCenter);
         ivAlignRight = findViewById(R.id.ivAlignRight);
         ivAlignJustify = findViewById(R.id.ivAlignJustify);
+
+//        ivvWallpaper = findViewById(R.id.ivWallpaper);
+        rvWallpapers = findViewById(R.id.rvWallpapers);
+        fetchWallpapersFromFirebaseStorage();
 
         // Get the quote text from the intent
         String quoteText = getIntent().getStringExtra("QUOTE_TEXT");
@@ -196,6 +212,30 @@ public class DesignActivity extends AppCompatActivity {
             }
         });
     }
+    private void fetchWallpapersFromFirebaseStorage() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference wallpapersRef = storage.getReference().child("wallpapers");
+
+        wallpapersRef.listAll().addOnSuccessListener(listResult -> {
+            for (StorageReference item : listResult.getItems()) {
+                wallpaperRefs.add(item);
+            }
+            setupRecyclerView();
+        }).addOnFailureListener(exception -> {
+            // Handle any errors
+            Toast.makeText(DesignActivity.this, "Failed to load wallpapers.", Toast.LENGTH_SHORT).show();
+        });
+    }
+    private void setupRecyclerView() {
+        WallpaperAdapter adapter = new WallpaperAdapter(this, wallpaperRefs, wallpaperRef ->
+                wallpaperRef.getDownloadUrl().addOnSuccessListener(uri ->
+                        Glide.with(DesignActivity.this).load(uri).into(ivWallpaper)
+                )
+        );
+        rvWallpapers.setLayoutManager(new GridLayoutManager(this, 5));
+        rvWallpapers.setAdapter(adapter);
+    }
+
 
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -236,13 +276,13 @@ public class DesignActivity extends AppCompatActivity {
         int style = 0;
         if (isBold) {
             style += Typeface.BOLD;
-            ivBold.setImageResource(R.drawable.highbold); // Example of highlighted icon
+            ivBold.setImageResource(R.drawable.ic_bold_highlighted); // Example of highlighted icon
         } else {
             ivBold.setImageResource(R.drawable.ic_bold); // Example of normal icon
         }
         if (isItalic) {
             style += Typeface.ITALIC;
-            ivItalic.setImageResource(R.drawable.ic_align_center); // Example of highlighted icon
+            ivItalic.setImageResource(R.drawable.ic_italic_hignlighted); // Example of highlighted icon
         } else {
             ivItalic.setImageResource(R.drawable.ic_italic); // Example of normal icon
         }
@@ -250,10 +290,10 @@ public class DesignActivity extends AppCompatActivity {
         // Apply text color change if selected
         if (isTextColorSelected) {
             tvQuote.setTextColor(getResources().getColor(R.color.white)); // Example of selected color
-            ivTextColor.setImageResource(R.drawable.ic_align_center); // Example of highlighted icon
+            ivTextColor.setImageResource(R.drawable.ic_color); // Example of highlighted icon
         } else {
             tvQuote.setTextColor(getResources().getColor(R.color.black)); // Example of default color
-            ivTextColor.setImageResource(R.drawable.ic_text_color); // Example of normal icon
+            ivTextColor.setImageResource(R.drawable.ic_color); // Example of normal icon
         }
 
         // Apply combined styles to text view
