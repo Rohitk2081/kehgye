@@ -56,4 +56,4 @@ Here are screenshots of the app's key screens to showcase its design and feature
 - **Retrofit**: For making API calls.
 
 ## Contributors
-- [Your Name](https://github.com/Rohitk2081)
+- [Rohit](https://github.com/Rohitk2081)
