@@ -36,8 +36,7 @@ Here are screenshots of the app's key screens to showcase its design and feature
 
 | Splash Screen | Login Page | Registration Page |
 |---------------|------------|-------------------|
-| ![Splash](app/src/main/res
-/drawable/splash_screenshot.png) | ![Login](login_screenshot.png) | ![Registration](registration_screenshot.png) |
+| ![splash_screenshot.png) | ![Login](login_screenshot.png) | ![Registration](registration_screenshot.png) |
 
 | Home Screen | Profile Screen | Post Screen |
 |-------------|----------------|-------------|
